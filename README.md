@@ -51,4 +51,4 @@ This new company wants to be able to use infrastructure as code methodology so y
 
 ## Solutions
 
-To submit a solution create a branch with you name on it and start commiting. :)
+To submit a solution create a branch with your name on it and start commiting. :)

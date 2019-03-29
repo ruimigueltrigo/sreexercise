@@ -1,0 +1,32 @@
+---
+- hosts: default
+  become: yes
+  tasks:
+    - name: ensure nginx is at the latest version
+      apt: name=nginx state=latest
+      become: yes
+    - name: start nginx
+      service:
+          name: nginx
+          state: started
+      become: yes
+    - name: copy the nginx config file and restart nginx
+      copy:
+        src: memepage.cfg
+        dest: /etc/nginx/sites-available/memepage.cfg
+      become: yes
+    - name: create symlink
+      file:
+        src: /etc/nginx/sites-available/memepage.cfg
+        dest: /etc/nginx/sites-enabled/default
+        state: link
+      become: yes
+    - name: copy the content of the web site
+      copy:
+        src: memepage-src/
+        dest: /home/ubuntu/memepage
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+      become: yes
